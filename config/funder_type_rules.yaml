@@ -1,0 +1,209 @@
+# Rules for classifying funders, grants and recipients. Edit freely and rerun
+#   python scripts/classify_grants.py
+#
+# Funder rules are checked top to bottom; the first match wins. Each type can
+# have:
+#   names:    plain names, matched as whole words in the CLEANED funder name
+#             (uppercase, no punctuation, "&" -> "AND", leading "THE " removed)
+#   patterns: regular expressions matched against the same cleaned name
+#   eins:     exact 9-digit EINs in quotes, e.g. "570426344"; these win over
+#             every name or pattern rule
+#
+# Funders matching no rule default to:
+#   990-PF filers -> private_family
+#   990 filers    -> public_charity
+
+funder_types:
+  defunct:
+    description: Closed programs that no longer make grants.
+    patterns:
+      - '\bAMAZONSMILE\b'
+      - '\bAMAZON SMILE\b'
+    eins: []
+
+  daf_sponsor:
+    description: Donor-advised fund sponsors. Grants are recommended by individual donors; they don't take applications.
+    patterns:
+      - '\bFIDELITY INVESTMENTS CHARITABLE\b'
+      - '\bFIDELITY CHARITABLE\b'
+      - '\bSCHWAB CHARITABLE\b'
+      - '\bCHARLES SCHWAB CHARITABLE\b'
+      - '\bNATIONAL CHRISTIAN CHARITABLE\b'
+      - '\bNATL CHRISTIAN CHARITABLE\b'
+      - '\bNATIONAL CHRISTIAN FOUNDATION\b'
+      - '^NCF\b'
+      - '\bVANGUARD CHARITABLE\b'
+      - '\bNATIONAL PHILANTHROPIC TRUST\b'
+      - '\bAMERICAN ENDOWMENT FOUNDATION\b'
+      - '\bAMERICAN ONLINE GIVING FOUNDATION\b'
+      - '\bBENEVITY\b'
+      - '\bBLACKBAUD GIVING FUND\b'
+      - '\bNETWORK FOR GOOD\b'
+      - '\bPAYPAL GIVING FUND\b'
+      - '\bPAYPAL CHARITABLE GIVING FUND\b'
+      - '\bSOUTH CAROLINA CHRISTIAN FOUNDATION\b'  # runs donor-advised "giving funds"
+      - '\bMORGAN STANLEY GLOBAL IMPACT FUNDING TRUST\b'
+      - '\bMORGAN STANLEY GIFT\b'
+      - '\bRAYMOND JAMES CHARITABLE\b'
+      - '\bUS CHARITABLE GIFT TRUST\b'
+      - '\bU S CHARITABLE GIFT TRUST\b'
+      - '\bDAFFY CHARITABLE\b'
+      - '\bGOLDMAN SACHS PHILANTHROPY FUND\b'
+      - '\bBANK OF AMERICA CHARITABLE GIFT FUND\b'
+      - '\bJEWISH COMMUNAL FUND\b'
+      - '\bRENAISSANCE CHARITABLE\b'
+      - '\bDONOR ADVISED CHARITABLE GIVING\b'
+      - '\bCHRISTIAN COMMUNITY FOUNDATION\b'
+      - '\bCAF AMERICA\b'
+      - '\bCHARITIES AID FOUNDATION AMERICA\b'
+      - '\bGIVINGPOINT\b'
+    eins: []
+
+  affiliate_passthrough:
+    description: National organizations passing money to their own local chapters.
+    patterns:
+      - '\bHABITAT FOR HUMANITY INTERNATIONAL\b'
+      - '\bBOYS AND GIRLS CLUBS OF AMERICA\b'
+      - '\bYMCA OF THE USA\b'
+      - '\bNATIONAL COUNCIL OF YOUNG MENS CHRISTIAN\b'
+      - '\bUNITED WAY WORLDWIDE\b'
+      - '\bBIG BROTHERS BIG SISTERS OF AMERICA\b'
+      - '\bGIRL SCOUTS OF THE UNITED STATES\b'
+      - '\bBOY SCOUTS OF AMERICA\b'
+      - '\bAMERICAN NATIONAL RED CROSS\b'
+      - '\bFEEDING AMERICA\b'
+      - '\bSPECIAL OLYMPICS INC\b'
+      - '\bMEALS ON WHEELS AMERICA\b'
+      - '\bGOODWILL INDUSTRIES INTERNATIONAL\b'
+      - '\bLOCAL INITIATIVES SUPPORT CORP\b'
+      - '\bCOMMUNITIES IN SCHOOLS INC\b'
+    eins: []
+
+  government:
+    description: Government bodies.
+    patterns:
+      - '^(CITY|TOWN|COUNTY|STATE|VILLAGE) OF\b'
+      - '\bCOUNTY (COUNCIL|GOVERNMENT)\b'
+      - '\bDEPARTMENT OF\b'
+      - '\bSCHOOL DISTRICT\b'
+    eins: []
+
+  community_foundation:
+    description: >-
+      Community foundations and United Ways: local public funders that usually
+      run open grant cycles.
+    patterns:
+      - '\bCOMMUNITY FOUNDATION\b'
+      - '\bFOUNDATION FOR THE CAROLINAS\b'
+      - '\bCOASTAL COMMUNITY FOUNDATION\b'
+      - '\bCENTRAL CAROLINA COMMUNITY FOUNDATION\b'
+      - '\bSPARTANBURG COUNTY FOUNDATION\b'
+      - '\bCOMMUNITY FOUNDATION OF GREATER GREENVILLE\b'
+      - '\bUNITED WAY\b'
+    eins: []
+
+  corporate:
+    description: Company foundations and corporate giving programs.
+    # Plain company names (matched as whole words; no regex needed).
+    names:
+      - BANK OF AMERICA
+      - WELLS FARGO
+      - TRUIST
+      - DUKE ENERGY
+      - DOMINION ENERGY
+      - SANTEE COOPER
+      - WALMART
+      - LOWES
+      - PUBLIX
+      - DICKS SPORTING GOODS
+      - BLUECROSS BLUESHIELD
+      - BLUE CROSS BLUE SHIELD
+      - MICHELIN
+      - BMW
+      - BOEING
+      - SONOCO
+      - MILLIKEN
+      - FIRST CITIZENS
+      - TD CHARITABLE
+      - SYNOVUS
+      - REGIONS
+      - PNC
+      - JPMORGAN
+      - COCA COLA
+      - PEPSICO
+      - TARGET
+      - HOME DEPOT
+      - AT AND T
+      - VERIZON
+      - COMCAST
+      - ENTERPRISE HOLDINGS
+      - ALLSTATE
+      - AMICA
+      - ASSURANT
+      - TEGNA
+      - SHELL OIL
+      - REYNOLDS AMERICAN
+      - FIREHOUSE SUBS
+      - CELANESE
+      - ALBEMARLE
+      - SYNTHOMER
+      - AMERISOURCEBERGEN
+      - CENCORA
+      - EDWARD JONES
+      - COMPORIUM
+      - NUCOR
+      - SPRINGS GLOBAL
+      - KEHE
+      - REPUBLIC SERVICES
+      - WOODFOREST
+      - KAJIMA
+      - MIDWAYUSA
+      - MIDWAY USA
+      - TRUE HOMES
+      - NUTRAMAX
+    patterns:
+      - '\bCORPORATE FOUNDATION\b'
+      - '\bCOMPANY FOUNDATION\b'
+      - '\b(INC|CORP|CO|LLC) (CHARITABLE )?FOUNDATION\b'
+      - '\bEMPLOYEES? (COMMUNITY|CHARITABLE)\b'
+    eins: []
+
+# Grant purposes that mark an employee matching gift.
+matching_gift_patterns:
+  - '\bMATCH'
+
+# Recipient types, checked in this order against the cleaned recipient name.
+recipient_types:
+  government:
+    - '^(CITY|TOWN|COUNTY|STATE|VILLAGE) OF\b'
+    - '\bCOUNTY (COUNCIL|GOVERNMENT|SHERIFF)\b'
+    - '\bDEPARTMENT OF\b'
+    - '\bSHERIFFS? OFFICE\b'
+    - '\bPOLICE DEPARTMENT\b'
+    - '\bFIRE (DEPARTMENT|DEPT|RESCUE)\b'
+    - '\bPUBLIC LIBRARY\b'
+  school_university:
+    - '\bUNIVERSITY\b'
+    - '\bCOLLEGE\b'
+    - '\bSCHOOL\b'
+    - '\bSCHOOLS\b'
+    - '\bACADEMY\b'
+    - '\bSCHOOL DISTRICT\b'
+    - '\bELEMENTARY\b'
+    - '\bMIDDLE\b'
+    - '\bHIGH SCHOOL\b'
+    - '\bPTA\b'
+    - '\bPTO\b'
+    - '\bTECHNICAL COLLEGE\b'
+    - '\bSEMINARY\b'
+  church:
+    - '\bCHURCH\b'
+    - '\bPARISH\b'
+    - '\bCATHEDRAL\b'
+    - '\bCONGREGATION\b'
+    - '\bSYNAGOGUE\b'
+    - '\bTEMPLE\b'
+    - '\bCHAPEL\b'
+    - '\bDIOCESE\b'
+    - '\bMOSQUE\b'
+    - '\bMASJID\b'

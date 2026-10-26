@@ -1,0 +1,53 @@
+# macOS / editors
+.DS_Store
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+/build/
+/coverage/
+
+# Secrets and local settings
+/env.json
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+/android/key.properties
+/android/local.properties
+
+# iOS
+/ios/Pods/
+/ios/.symlinks/
+/ios/Flutter/Generated.xcconfig
+/ios/Flutter/flutter_export_environment.sh
+/ios/Flutter/ephemeral/
+**/xcuserdata/
+
+# Android
+/android/.gradle/
+/android/.kotlin/
+/android/app/build/
+
+# Website
+/website/node_modules/
+/website/dist/
+/website/.vercel/
+
+# Supabase CLI
+/supabase/.temp/
+
+# Python data pipeline (data is downloaded/rebuilt by run_pipeline.py)
+.venv/
+__pycache__/
+.pytest_cache/
+/data/raw/
+/data/interim/
+/data/processed/
+*.log

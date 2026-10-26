@@ -1,0 +1,126 @@
+/*
+ * BridgeGrant design tokens. Light mode is "Mint" (fresh mint and white with
+ * emerald and coral accents); dark mode matches the app's dark navy theme.
+ * Every token used by styles.css is defined in both. Chart colors were
+ * checked for colorblind separation and 3:1 contrast on each card surface:
+ * light #14a37f/#e8684a, dark #4f8ef7/#e05a9a.
+ */
+
+:root {
+  color-scheme: light;
+  --font-body: 'Manrope Variable', system-ui, sans-serif;
+  --font-display: 'Manrope Variable', system-ui, sans-serif;
+  --font-num: 'Manrope Variable', system-ui, sans-serif;
+  --heading-weight: 800;
+  --heading-tracking: -0.02em;
+  --amount-weight: 800;
+
+  --bg: #eef7f3;
+  --surface: #ffffff;
+  --surface-2: #f1f8f5;
+  --text: #14261f;
+  --muted: #5f7169;
+  --border: #dcebe4;
+  --primary: #0d7a5f;
+  --primary-ink: #ffffff;
+  --link: #0b6d55;
+  --accent: #e8684a;
+  --error: #b3261e;
+
+  --bar-track: #e3f1eb;
+  --bar-fill: linear-gradient(90deg, #5fd0ae, #14a37f);
+  --chart-bar: #14a37f;
+  --chart-selected: #e8684a;
+  --tip-bg: #14261f;
+  --tip-ink: #ffffff;
+
+  --hero-bg: linear-gradient(135deg, #d9f5ea 0%, #c6efe0 55%, #e6f7d9 100%);
+  --hero-ink: #14261f;
+  --hero-border: 0;
+  --hero-radius: 28px;
+  --hero-shadow: 0 10px 28px rgb(13 122 95 / 10%);
+  --hero-pill-bg: rgb(255 255 255 / 70%);
+  --hero-pill-border: rgb(13 122 95 / 15%);
+  --hero-btn-bg: #0d7a5f;
+  --hero-btn-ink: #ffffff;
+  --orb: rgb(255 255 255 / 55%);
+
+  --radius: 20px;
+  --card-border: 0;
+  --card-shadow: 0 6px 20px rgb(20 60 45 / 7%);
+
+  --header-bg: rgb(238 247 243 / 90%);
+  --header-border: 0;
+  --header-ink: #14261f;
+  --nav-ink: #5f7169;
+  --nav-hover-bg: #e3f1eb;
+  --nav-active-bg: #0d7a5f;
+  --nav-active-ink: #ffffff;
+  --rank-top-bg: #0d7a5f;
+  --rank-top-ink: #ffffff;
+}
+
+/* Dark mode: same layout, the app's dark navy colors. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0f141b;
+  --surface: #171e27;
+  --surface-2: #1f2834;
+  --text: #e6ebf2;
+  --muted: #9aa5b5;
+  --border: #2a3441;
+  --primary: #8fb6e8;
+  --primary-ink: #0d2a4a;
+  --link: #8fb6e8;
+  --accent: #e05a9a;
+  --error: #f2b8b5;
+
+  --bar-track: #26303d;
+  --bar-fill: linear-gradient(90deg, #4fb7bf, #8fb6e8);
+  --chart-bar: #4f8ef7;
+  --chart-selected: #e05a9a;
+  --tip-bg: #e6ebf2;
+  --tip-ink: #17202e;
+
+  --hero-bg: linear-gradient(135deg, #0d2a4a 0%, #12355b 55%, #0e7c86 100%);
+  --hero-ink: #ffffff;
+  --hero-shadow: 0 12px 30px rgb(0 0 0 / 35%);
+  --hero-pill-bg: rgb(255 255 255 / 14%);
+  --hero-pill-border: rgb(255 255 255 / 22%);
+  --hero-btn-bg: #ffffff;
+  --hero-btn-ink: #12355b;
+  --orb: rgb(255 255 255 / 7%);
+
+  --card-border: 1px solid #2a3441;
+  --card-shadow: none;
+
+  --header-bg: rgb(15 20 27 / 92%);
+  --header-ink: #e6ebf2;
+  --nav-ink: #9aa5b5;
+  --nav-hover-bg: #1f2834;
+  --nav-active-bg: rgb(143 182 232 / 15%);
+  --nav-active-ink: #8fb6e8;
+  --rank-top-bg: linear-gradient(135deg, #12355b, #0e7c86);
+  --rank-top-ink: #ffffff;
+}
+
+/* Shape and accent rules shared by both modes. */
+.icon-badge,
+.rank {
+  border-radius: 50%;
+}
+
+/* Mint-only accents. */
+:root:not([data-theme='dark']) .hero::after {
+  background: rgb(255 255 255 / 40%);
+}
+:root:not([data-theme='dark']) .icon-badge {
+  color: #0d7a5f;
+  background: #dff3ea;
+}
+:root:not([data-theme='dark']) .chip.active {
+  background: #0d7a5f;
+  border-color: #0d7a5f;
+  color: #ffffff;
+}

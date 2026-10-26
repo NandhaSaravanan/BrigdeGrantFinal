@@ -1,0 +1,7 @@
+pandas>=2.2
+pyarrow>=18
+requests>=2.32
+PyYAML>=6.0
+rapidfuzz>=3.9
+lxml>=5.3
+pytest>=8.3
